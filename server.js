@@ -42,8 +42,22 @@ app.use("/api/fooditems", foodItemRoute(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+   knex
+      .select("*")
+      .from("food_items")
+      .then((results) => {
+        console.log(results)
+        const stringify = JSON.stringify(results)
+        const templateVars = {
+          results: JSON.parse(stringify)
+        }
+        res.render("index", templateVars)
+
+    });
+
 });
+
+// app.post("/api/orders", foodItemRoute(knex))
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
