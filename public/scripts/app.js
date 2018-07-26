@@ -9,20 +9,29 @@
 //   });;
 // });
 
-$(document).ready(function(){
+$(document).ready(function() {
 
-  const items = [
-    {
-      id: 1,
-      name: 'Sante Fe Salad',
-      description: 'Very yummy salad',
-      price: '$12.99',
-      preptime: '3 mins',
-      type: 'salad',
-      picture: 'https://earls-public.storage.googleapis.com/content/menu_items/images/000/000/128/original/153.jpg'
-    }
+  // const items = [
+  //   {
+  //     id: 1,
+  //     name: 'Sante Fe Salad',
+  //     description: 'Very yummy salad',
+  //     price: '$12.99',
+  //     preptime: '3 mins',
+  //     type: 'soup',
+  //     picture: 'https://earls-public.storage.googleapis.com/content/menu_items/images/000/000/128/original/153.jpg'
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Tomato Bisque',
+  //     description: 'Best Soup Every',
+  //     price: '$9.99',
+  //     preptime: '3 mins',
+  //     type: 'soup',
+  //     picture: 'https://earls-public.storage.googleapis.com/content/menu_items/images/000/000/128/original/153.jpg'
+  //   }
 
-  ]
+  // ];
 
   function createMenuItems(item) {
     //when document loads, create the cards for each menu item
@@ -32,27 +41,24 @@ $(document).ready(function(){
   let name = item.name;
   let desc = item.description;
   let price = item.price;
-  let prepTime = item.preptime;
-  let type = item.type;
-  let image = item.image; //image url
+  let prepTime = item.prep_time;
+  let type = item.classification;
+  let image = item.picture; //image url
 
   //create the card pieces
+  let $divColSize = $('<div>').attr('class', 'col-sm-4')
   let $divcard = $('<div>').attr('class', 'card');
-  let $img = $('<img>').attr('class', 'car-img-top').attr('src', image);
+  let $img = $('<img>').attr('class', 'card-img-top').attr('src', image);
   let $divbody = $('<div>').attr('class', 'card-body')
   let $title = $('<h5>').attr('class', 'card-title').text(name);
   let $description = $('<p>').attr('class', 'card-text').text(desc);
-  let $span = $('<span>').attr('id', 'price').text(price);
-  let $addToCart = $('<a>').attr('href', '#').attr('btn btn-primary').text('Add to Cart');
+  let $spanPrice = $('<span>').attr('id', 'price').text(price);
+  let $addToCart = $('<a>').attr('href', '#').attr('btn btn-primary');
 
-  //append to div
-  $divbody.append($title);
-  $divbody.append($description);
-  $divbody.append($addToCart);
-  $divcard.append($img);
-  $divcard.append($divbody);
-
-  return $divcard;
+  $divbody.append($title, $description, $spanPrice, $addToCart);
+  $divcard.append($img, $divbody);
+  $divColSize.append($divcard);
+  return $divColSize;
 
   }
 
@@ -60,24 +66,33 @@ $(document).ready(function(){
   //for each menu item, create the cards
 
   function renderCards(menuItems) {
-    menuItems.forEach(item) {
+    menuItems.forEach(function(item) {
       let menuItemCard = createMenuItems(item);
-      if (item.type === 'soup') {
+      if (item.classification === 'Soup_Salad') {
         $('#soups').append(menuItemCard);
-      } else if (item.type === 'main') {
+      } else if (item.classification === 'Main') {
         $('#mains').append(menuItemCard);
-      } else if (item.type === 'sides') {
+      } else if (item.classification === 'Side') {
         $('#sides').append(menuItemCard);
-      } else if (item.type === 'desserts') {
-        $('#desserts').append(manuItemCard);      }
-    }
+      } else if (item.classification === 'Dessert') {
+        $('#desserts').append(menuItemCard);
+      }
+
+    })
+
   }
 
   //load the cards
-  function loadMenuItems () {
-
+  function loadMenuItems() {
+    $.ajax('/api/fooditems', {
+      method: 'GET',
+    })
+    .done(function(items){
+      renderCards(items);
+    });
+    // renderCards(items);
   }
 
-
+  loadMenuItems();
 
 });
