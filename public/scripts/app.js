@@ -30,7 +30,7 @@ $(document).ready(function() {
   let $divbody = $('<div>').attr('class', 'card-body')
   let $title = $('<h5>').attr('class', 'card-title').text(name);
   let $description = $('<p>').attr('class', 'card-text').text(desc);
-  let $spanPrice = $('<span>').attr('id', 'price').text(price);
+  let $spanPrice = $('<span>').attr('id', 'price').text(`$${price}`);
   let $addToCart = $('<a>').attr('href', '#').attr('class', 'btn btn-md btn-primary').text('Add to Cart');
 
   $divbody.append($title, $description, $spanPrice, $addToCart);
@@ -68,7 +68,6 @@ $(document).ready(function() {
     .done(function(items){
       renderCards(items);
     });
-    // renderCards(items);
   }
 
   loadMenuItems();
