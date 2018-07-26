@@ -51,13 +51,27 @@
                 </div>
               </div>
 
+
     <div class="top-pic">
     <img src="/images/background_earls.jpg" style="width: 100%; background-image: initial;">
     </div>
     <main class="container">
-      <div id="soups">
-        <h1>I am soupy</h1>
-      </div>
+     <% results.forEach(function(result) { %>
+
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%=result.picture%>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><%=result.name%></h5>
+            <p class="card-text"><%= result.description%></p>
+            <span>$<%=result.price%></span>
+            <a href="#" class="btn btn-md btn-primary">Add to Cart</a>
+          </div>
+        </div>
+
+
+      <%})%>
+
+
       <div id="mains">
         <h1>I am a main</h1>
       </div>
@@ -75,6 +89,14 @@
 
 
     </main>
+
+    <% results.forEach(function(result) { %>
+
+            <p>Item: <%=result.name%></p>
+
+
+      <%})%>
+
 
   </body>
 </html>
