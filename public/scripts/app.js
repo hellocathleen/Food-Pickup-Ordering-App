@@ -11,28 +11,6 @@
 
 $(document).ready(function() {
 
-  // const items = [
-  //   {
-  //     id: 1,
-  //     name: 'Sante Fe Salad',
-  //     description: 'Very yummy salad',
-  //     price: '$12.99',
-  //     preptime: '3 mins',
-  //     type: 'soup',
-  //     picture: 'https://earls-public.storage.googleapis.com/content/menu_items/images/000/000/128/original/153.jpg'
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Tomato Bisque',
-  //     description: 'Best Soup Every',
-  //     price: '$9.99',
-  //     preptime: '3 mins',
-  //     type: 'soup',
-  //     picture: 'https://earls-public.storage.googleapis.com/content/menu_items/images/000/000/128/original/153.jpg'
-  //   }
-
-  // ];
-
   function createMenuItems(item) {
     //when document loads, create the cards for each menu item
   //takes in one object and creates the card for it
@@ -53,7 +31,7 @@ $(document).ready(function() {
   let $title = $('<h5>').attr('class', 'card-title').text(name);
   let $description = $('<p>').attr('class', 'card-text').text(desc);
   let $spanPrice = $('<span>').attr('id', 'price').text(price);
-  let $addToCart = $('<a>').attr('href', '#').attr('btn btn-primary');
+  let $addToCart = $('<a>').attr('href', '#').attr('class', 'btn btn-md btn-primary').text('Add to Cart');
 
   $divbody.append($title, $description, $spanPrice, $addToCart);
   $divcard.append($img, $divbody);
