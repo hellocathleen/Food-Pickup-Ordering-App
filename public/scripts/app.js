@@ -14,12 +14,49 @@ $(document).ready(function() {
 
 
 
-  const $cartbtn = $('#cartbtn');
+  const $divCard = $('.card')
+  const $addToCart = $('.addCart')
+  // const $modal = $('.modal')
+  const $modalBody = $('.model-body ol')
 
-  $cartbtn.on('show.bs.modal', function() {
-  //   $('.modal .fade').show();
-    console.log('cart button clicked')
-  })
+
+  $addToCart.on('click', function(){
+
+    const $name = $(this).siblings('.card-title');
+    const $price = $(this).siblings('#price').text().replace('$', '')
+
+    const itemId = $(this).attr('id').replace('addToCart', '');//string
+    const $itemAdded = $('<li>').text($name.text())
+    console.log($itemAdded.text())
+    const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one
+
+    //still need to append items to modal body
+    console.log($name.text(), $price)
+
+//columns that don't need to be added yet are: order status, created at, total price, comments, wait time
+    const order = {
+      quantity_of_items: [{Quantity: itemQuantity, foodId: itemId, name: $name.text(), price: $price}]
+
+    }
+
+    $.ajax("/api/cart", {
+      method: 'POST',
+      data: order
+      })
+      .done(function(cookieId) {
+        console.log('a thing happened!')
+      })
+
+    });
+
+
+
+
+
+  });
+
+
+
 
   //on send order
 
@@ -31,4 +68,4 @@ $(document).ready(function() {
   // send thr ajax to /api/orders
   //.ajax post
 
-});
+
