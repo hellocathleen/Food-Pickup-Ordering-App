@@ -6,7 +6,8 @@ exports.up = function(knex, Promise) {
     table.foreign('user_id').references('users.id');
     table.decimal('total_price');
     table.timestamp('created_at').defaultTo(knex.fn.now());
-    table.boolean('status');
+    table.timestamp('updated_at').defaultTo(knex.fn.now());
+    table.boolean('status').defaultTo(false);
     table.string('comments');
     table.integer('est_wait_time');
     table.string('quantity_of_items');
