@@ -23,14 +23,16 @@
       <a class="navbar-brand" href="#">
         <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
         Hungry Hippo</a>
+
+
                 <!-- Button trigger modal -->
-        <button id="cartbtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
           Cart
         </button>
 
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </nav>
+            <!--Modal Body-->
+     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -40,7 +42,10 @@
                 </button>
               </div>
               <div class="modal-body">
-                ...
+                <ol>
+
+
+                </ol>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -50,26 +55,28 @@
           </div>
         </div>
 
-    </nav>
 
 
 
     <div class="top-pic">
     <img src="https://earls-public.storage.googleapis.com/content/snippet_images/images/000/000/018/original/Fresh.jpg?1476299010" style="width: 100%; background-image: initial;">
     </div>
+
     <main class="container">
-     <% results.forEach(function(result) { %>
-      <div class="d-inline-flex p-2">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%=result.picture%>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"><%=result.name%></h5>
-            <p class="card-text"><%= result.description%></p>
-            <span>$<%=result.price%></span>
-            <a href="#" id="cartbtn" class="btn btn-md btn-primary">Add to Cart</a>
+
+
+      <% results.forEach(function(result) { %>
+        <div class="d-inline-flex p-2">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="<%=result.picture%>" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%=result.name%></h5>
+              <p class="card-text"><%= result.description%></p>
+              <span id="price">$<%=result.price%></span>
+              <a href="#" id="addToCart<%=result.id%>" class="btn btn-md btn-primary addCart">Add to Cart</a>
+            </div>
           </div>
         </div>
-      </div>
 
       <%})%>
 
