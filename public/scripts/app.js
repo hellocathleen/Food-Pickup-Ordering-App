@@ -31,13 +31,10 @@ $(document).ready(function() {
     const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one
 
 
-
-
-//columns that don't need to be added yet are: order status, created at, total price, comments, wait time
     var order =
       {Quantity: itemQuantity, foodId: itemId, name: $name.text(), price: $price}
 
-      var cookie = Cookies.getJSON('cart')
+      var cookie = Cookies.getJSON('cart');
         cookie.push(order);
         Cookies.set('cart', cookie);
 
@@ -67,8 +64,10 @@ $(document).ready(function() {
     $($orderList).appendTo($modal);
     let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
     $totalPrice.appendTo('.modal-body')
-    $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer')
+    $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer');
+    $('<input>').attr('id', 'name').attr('placeholder', 'name').attr('required', '').prependTo('.modal-header')
     $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
+
   });
 
 
@@ -85,19 +84,60 @@ $(document).ready(function() {
     let $totalPrice = $('.total-price').text()
     let totalPriceNum = $totalPrice.slice(1)
     let finalOrderObj = {quantity_of_items: []}
+    let user = {};
     for (var i = 0; i < finalCookieOrder.length; i++) {
-      // finalOrder.push(finalCookieOrder[i]);
       finalOrderObj.quantity_of_items.push(finalCookieOrder[i]);
+
     }
-    if (phoneNoDash[0] !== "1") {
-      finalOrderObj['phone'] = "+1" + phoneNoDash
+    finalOrderObj['comments'] = $comments;
+    finalOrderObj['total_price'] = Number(totalPriceNum);
+
+
+
+     if (phoneNoDash[0] !== "1") {
+      user['phone_number'] = "+1" + phoneNoDash;
     } else{
-      finalOrderObj['phone'] = "+" + phoneNoDash
+      user['phone_number'] = "+" + phoneNoDash;
     }
 
-    finalOrderObj['comments'] = $comments
-    finalOrderObj['total_price'] = Number(totalPriceNum)
-    console.log(finalOrderObj)
+    let $name = $('#name').val();
+    if ($name) {
+      console.log('you typed your name');
+    } else {
+      alert('Please enter your name!');
+    }
+
+    user['name'] = $('#name').val();
+
+    //need to empty cart so they cannot keep pressing order
+    //leave a message - Thank you! your order has been sent and we will let you know via text when it is ready
+
+    const twilioOrder = {
+      name: $name,
+      phoneNumber: user.phone_number,
+      orderItems: finalOrderObj.quantity_of_items,
+      totalPrice: $totalPrice
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/api/users",
+      data: user
+    })
+    .done(function(id) {
+      finalOrderObj['user_id'] = id[0]
+      console.log(finalOrderObj)
+      $.ajax({
+        method: "POST",
+        url: "/api/orders",
+        data: finalOrderObj
+      })
+      .done(function(orderId){
+        console.log(orderId[0])
+      })
+      .
+    })
+
 
 
 
