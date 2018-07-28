@@ -19,7 +19,6 @@ $(document).ready(function() {
   const $modalBody = $('.model-body ol')
 
    let fakeCookie = [];
-    // let fakeCookieString = JSON.stringify(fakeCookie);
     Cookies.set('cart', fakeCookie)
 
 
@@ -76,10 +75,12 @@ $(document).ready(function() {
     $('.modal-body').empty();
 
     let allCookies = Cookies.getJSON('cart');
-
+    let total = 0;
       for (var i = 0; i < allCookies.length; i++) {
+        total += allCookies[i].price * allCookies[i].Quantity
         $listItem = $('<li>').text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
-        $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price').attr('style', 'float: right;')
+        $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
+        // $('<span>').text().appendTo('.modal-body')
         $listItem.append($price)
         $listItem.appendTo($orderList);
 
@@ -87,9 +88,11 @@ $(document).ready(function() {
 
 
     $($orderList).appendTo($modal);
-    $('<span>').appendTo('.modal-body')
-    $('<input>').appendTo('.modal-body').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments')
-    $('<input>').appendTo('.modal-body').attr('type', 'text').attr('name', 'phone-number')
+    let $totalPrice = $('<span>').text(`$${total}`)
+    $totalPrice.appendTo('.modal-body')
+    $('<input>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').appendTo('.modal-body')
+    $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number').appendTo('.modal-body')
+
 
 
   });
