@@ -12,6 +12,17 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
     });
+
+  // router.post("/api/orders", (req, res) => {
+  //   knex('orders')
+  //   .returning('id')
+  //   .insert(data)
+  //   .whereNotExists(function() )
+  //   .then((orderId) => {
+  //     res.json(orderId)
+  //   }
+  // })
+
   });
 
   return router;
