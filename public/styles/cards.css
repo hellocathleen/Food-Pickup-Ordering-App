@@ -1,0 +1,78 @@
+
+body .btn-primary:hover  {
+  color: #fff;
+  background-color: #81919e;
+  border-color: #81919e;
+  float: right;
+}
+
+
+body .btn-primary {
+  color: #fff;
+  background-color: #233a59;
+  border-color: #233a59;
+  float: right;
+}
+
+
+.card-body {
+  font-family: 'Sunflower', sans-serif;
+  border: 1px;   
+  box-shadow: 0px 0px 2px 0px grey;
+  padding: 15px;
+}
+
+.card-text {
+  font-family: Larsseit,Arial,sans-serif;
+  font-size: .9em;
+  color: #244751;
+  margin-bottom: 40px
+}
+
+.card-deck {
+  align-content: center;  
+}
+
+.card-title {
+  color: #244751;
+  margin-bottom: 2px!important;
+}
+
+body .card-img-top {
+  width: 100%;
+  border-top-left-radius: calc(.25rem - 1px);
+  border-top-right-radius: calc(.25rem - 1px);
+  height: 25vw;
+  max-height: 50%;
+  object-fit: cover;
+  box-shadow: 0px 0px 2px 0px grey;
+}
+
+.d-inline-flex:hover {
+  opacity: .85;
+
+}
+
+#cartbtn {
+  color: #fff;
+}
+
+.card-body .btn.btn-primary {
+  font-family: 'Sunflower', sans-serif;
+  position:absolute;
+  bottom:20px;
+  right: 60px;
+}
+
+.card-body span {
+  position:absolute;
+  bottom:20px;
+  left: 20px;
+}
+
+#quantity {
+  position:absolute;
+  bottom:20px;
+  right: 20px;
+}
+
