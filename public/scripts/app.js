@@ -52,10 +52,8 @@ $(document).ready(function() {
     $('.modal-body').empty();
 
     let allCookies = Cookies.getJSON('cart');
-    console.log(allCookies)
     let total = 0;
       for (var i = 0; i < allCookies.length; i++) {
-        console.log(allCookies[i].price)
         total += allCookies[i].price * allCookies[i].Quantity
         $listItem = $('<li>').text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
