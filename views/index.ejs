@@ -90,7 +90,7 @@
     </div>
       <div class="card-deck">
         <% results.forEach(function(result) { if (result.classification == "Soup_Salad") { %>
-          <div class="d-inline-flex p-2">
+          <div class="d-inline-flex p-2 mx-auto">
             <div class="card" style="width: 18rem;">
               <img class="card-img-top" src="<%=result.picture%>" alt="Card image cap">
               <div class="card-body">
@@ -106,7 +106,7 @@
         <%})%>
         <hr class="hr-text" data-content="Mains">
         <% results.forEach(function(result) { if (result.classification == "Main") { %>
-          <div class="d-inline-flex p-2">
+          <div class="d-inline-flex p-2 mx-auto">
             <div class="card" style="width: 18rem;">
               <img class="card-img-top" src="<%=result.picture%>" alt="Card image cap">
               <div class="card-body">
@@ -122,7 +122,7 @@
         <%})%>    
         <hr class="hr-text" data-content="Sides">
         <% results.forEach(function(result) { if (result.classification == "Side") { %>
-          <div class="d-inline-flex p-2">
+          <div class="d-inline-flex p-2 mx-auto">
             <div class="card" style="width: 18rem;">
               <img class="card-img-top" src="<%=result.picture%>" alt="Card image cap">
               <div class="card-body">
@@ -138,7 +138,7 @@
         <%})%>
         <hr class="hr-text" data-content="Dessert">
         <% results.forEach(function(result) { if (result.classification == "Dessert") { %>
-          <div class="d-inline-flex p-2">
+          <div class="d-inline-flex p-2 mx-auto">
             <div class="card" style="width: 18rem;">
               <img class="card-img-top" src="<%=result.picture%>" alt="Card image cap">
               <div class="card-body">
