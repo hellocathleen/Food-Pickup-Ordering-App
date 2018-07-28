@@ -46,29 +46,6 @@ $(document).ready(function() {
   var $orderList = $('.modal-body ol')
   const $modal = $('.modal-body')
 
-  cookieFull = Cookies.getJSON('cart')
-
-  function createListElement (x) {
-
-    // $listItem = $('<li>')
-    $('<li>').text(x.name).appendTo($orderList)
-
-    console.log($orderList.html())
-    return $orderList
-  }
-
-  function renderList(z) {
-
-    z.forEach(function(element) {
-      $modal.append(createListElement(element))
-    })
-
-  }
-
-  // take our cookies array - array of object - for each object
-  // take the name of it and append to a list item
-  // for that list item append to ordered list element
-
 
   $cartbtn.click(function() {
     $('ol').empty();
