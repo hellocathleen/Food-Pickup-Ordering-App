@@ -50,6 +50,7 @@ $(document).ready(function() {
   $cartbtn.click(function() {
     $('ol').empty();
     $('.modal-body').empty();
+    $('.modal-footer.comments').empty();
 
     let allCookies = Cookies.getJSON('cart');
     console.log(allCookies)
@@ -57,7 +58,7 @@ $(document).ready(function() {
       for (var i = 0; i < allCookies.length; i++) {
         console.log(allCookies[i].price)
         total += allCookies[i].price * allCookies[i].Quantity
-        $listItem = $('<li>').text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
+        $listItem = $('<li>').text(`${allCookies[i].name}   (${allCookies[i].Quantity})`)
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
         // $('<span>').text().appendTo('.modal-body')
         $listItem.append($price)
@@ -69,8 +70,8 @@ $(document).ready(function() {
     $($orderList).appendTo($modal);
     let $totalPrice = $('<span>').text(`$${total}`)
     $totalPrice.appendTo('.modal-body')
-    $('<input>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').appendTo('.modal-body')
-    $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number').appendTo('.modal-body')
+    $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'Make comments for your order here').attr('class', 'comments').appendTo('.modal-footer')
+    $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number').attr('class', 'phone-number').prependTo('.modal-header')
 
 
 
