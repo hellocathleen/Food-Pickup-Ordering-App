@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/cards.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/modal.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Sunflower:300,500,700" rel="stylesheet">
@@ -18,6 +19,7 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
@@ -34,30 +36,30 @@
         </button>
     </nav>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <ol>
-
-                      </ol>
-                      <!-- <input type="text" name="comments"> -->
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button id="confirm" type="button" class="btn btn-primary">Send Order</button>
-                    </div>
-                  </div>
-                </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" font-size=".8em" id="exampleModalLabel">Add phone number to place order</h5>
+              <button id=modal-close type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ol id="RemoveListnumber">
+              </ol>
+              <div>
+                <input type="text" name="comments">
               </div>
-
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="confirm" type="button" class="btn btn-primary">Send Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     <div class="top-pic">
@@ -86,12 +88,12 @@
         Our menu is inspired by the world around us - both near and far. From chefs in London,
         to farmers in our local regions &nbsp;- our partners and inspirations inform our choices and our offer to you.
       </p>
-      <p>
-        Serious cocktails, beer (craft &amp; local!), and wine. Our Kitchen has a bar - it’s time to toast!
-      </p>
     </div>
 
     <main class="container">
+        <h4 class="text-center gutter-bottom">
+            <hr class="hr-text" data-content="Place an order for pick up by selecting your meals here">
+        </h4>
     <div>
         <hr class="hr-text" data-content="Salads &amp; Soups">
     </div>
@@ -138,6 +140,7 @@
                 <span id="price">$<%=result.price%></span>
                 <input id='quantity' type="number" name="itemQuantity" value="1" min="1" max="5">
                 <a id="addToCart<%=result.id%>" class="btn btn-md btn-primary addCart">Add to Cart</a>
+
               </div>
             </div>
           </div>

@@ -32,6 +32,7 @@ $(document).ready(function() {
 
 
 
+
 //columns that don't need to be added yet are: order status, created at, total price, comments, wait time
     var order =
       {Quantity: itemQuantity, foodId: itemId, name: $name.text(), price: $price}
@@ -52,25 +53,22 @@ $(document).ready(function() {
     $('.modal-body').empty();
     $('.modal-footer.comments').empty();
 
+
     let allCookies = Cookies.getJSON('cart');
     let total = 0;
       for (var i = 0; i < allCookies.length; i++) {
         total += allCookies[i].price * allCookies[i].Quantity
         $listItem = $('<li>').text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
-        // $('<span>').text().appendTo('.modal-body')
         $listItem.append($price)
         $listItem.appendTo($orderList);
-
       }
 
-
     $($orderList).appendTo($modal);
-    const $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
+    let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
     $totalPrice.appendTo('.modal-body')
     $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer')
     $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
-
   });
 
 
