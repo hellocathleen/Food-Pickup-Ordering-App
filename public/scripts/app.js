@@ -31,17 +31,14 @@ $(document).ready(function() {
     const $itemAdded = $('<li>').text($name.text())
     const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one
 
-    //still need to append items to modal body
-    console.log($name.text(), $price)
+
 
 //columns that don't need to be added yet are: order status, created at, total price, comments, wait time
     var order =
       {Quantity: itemQuantity, foodId: itemId, name: $name.text(), price: $price}
 
       var cookie = Cookies.getJSON('cart')
-        console.log("before push: ", cookie);
         cookie.push(order);
-        console.log("after push: ", cookie);
         Cookies.set('cart', cookie);
 
   });
@@ -50,7 +47,6 @@ $(document).ready(function() {
   var $orderList = $('.modal-body ol')
   const $modal = $('.modal-body')
 
-  console.log(Cookies.getJSON('cart'))
   cookieFull = Cookies.getJSON('cart')
 
   function createListElement (x) {
@@ -77,6 +73,7 @@ $(document).ready(function() {
 
   $cartbtn.click(function() {
     $('ol').empty();
+    $('.modal-body').empty();
 
     let allCookies = Cookies.getJSON('cart');
 
@@ -95,23 +92,9 @@ $(document).ready(function() {
     $('<input>').appendTo('.modal-body').attr('type', 'text').attr('name', 'phone-number')
 
 
-
   });
 
-  $modal.on("hidden.bs.modal", function(){
-    $modal.text("");
-  });
 
 });
-
-  //on send order
-
-  //create a get request to query database for item ids
-  //create an order object with name, id, items, comments etc
-  //status: true
-    //then post the order
-
-  // send thr ajax to /api/orders
-  //.ajax post
 
 
