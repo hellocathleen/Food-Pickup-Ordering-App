@@ -50,6 +50,7 @@ $(document).ready(function() {
   $cartbtn.click(function() {
     $('ol').empty();
     $('.modal-body').empty();
+    $('.modal-footer.comments').empty();
 
     let allCookies = Cookies.getJSON('cart');
     let total = 0;
@@ -65,14 +66,44 @@ $(document).ready(function() {
 
 
     $($orderList).appendTo($modal);
-    let $totalPrice = $('<span>').text(`$${total}`)
+    const $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
     $totalPrice.appendTo('.modal-body')
-    $('<input>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').appendTo('.modal-body')
-    $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number').appendTo('.modal-body')
-
-
+    $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer')
+    $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
 
   });
+
+
+  const $confirm = $('#confirm');
+  $confirm.on('click', function(){
+    let finalCookieOrder = Cookies.getJSON('cart');
+    let $phone = $('.phone-number').val();
+    let phoneNoDash = $phone.replace(/\D/g,'')
+
+    if (phoneNoDash.length < 10) {
+      alert('Please add your phone number including area code!');
+    }
+    let $comments = $('.comments').val();
+    let $totalPrice = $('.total-price').text()
+    let totalPriceNum = $totalPrice.slice(1)
+    let finalOrderObj = {quantity_of_items: []}
+    for (var i = 0; i < finalCookieOrder.length; i++) {
+      // finalOrder.push(finalCookieOrder[i]);
+      finalOrderObj.quantity_of_items.push(finalCookieOrder[i]);
+    }
+    if (phoneNoDash[0] !== "1") {
+      finalOrderObj['phone'] = "+1" + phoneNoDash
+    } else{
+      finalOrderObj['phone'] = "+" + phoneNoDash
+    }
+
+    finalOrderObj['comments'] = $comments
+    finalOrderObj['total_price'] = Number(totalPriceNum)
+    console.log(finalOrderObj)
+
+
+
+  })
 
 
 });
