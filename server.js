@@ -14,6 +14,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require('cookie-session');
+const Cookies     = require('js-cookie');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -30,7 +31,9 @@ app.use(cookieSession ({
   name: 'session',
   keys: ['secret-string']
 
-}))
+}));
+
+//
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,22 +69,15 @@ app.post("/api/orders", (req, res) => {
 })
 
 app.post("/api/cart", (req, res) => {
-  console.log(req.body)
-  let templateVars = {}
-  if (!req.session.cart) {
-    req.session['cart'] = req.body;
-    console.log('cart: ', req.session.cart)
-    let item = req.body.name
-    let price = req.body.price
-  } else {
-    req.session.cart.quantity_of_items.push(req.body.quantity_of_items[0])
-    templateVars['item'] = req.body.name
-    templateVars['price'] = req.body.price
-    console.log('cart: ', req.session.cart)
 
-  }
   res.redirect('/')
 })
+
+// app.get("/api/cart", (req, res) => {
+//   let cartOrder = req.session.cart
+//   console.log(cartOrder)
+//   res.render('index', cartOrder)
+// })
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
