@@ -26,7 +26,7 @@ body .btn-primary {
   font-family: Larsseit,Arial,sans-serif;
   font-size: .9em;
   color: #244751;
-  margin-bottom: 55px
+  margin-bottom: 40px
 }
 
 .card-deck {
@@ -35,6 +35,7 @@ body .btn-primary {
 
 .card-title {
   color: #244751;
+  margin-bottom: 2px!important;
 }
 
 body .card-img-top {
