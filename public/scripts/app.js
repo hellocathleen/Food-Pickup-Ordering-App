@@ -1,25 +1,13 @@
-// // $(() => {
-// //   $.ajax({
-// //     method: "GET",
-// //     url: "/api/users"
-// //   }).done((users) => {
-// //     for(user of users) {
-// //       $("<div>").text(user.name).appendTo($("body"));
-// //     }
-// //   });;
-// // });
-
 $(document).ready(function() {
 
 
 
   const $divCard = $('.card')
   const $addToCart = $('.addCart')
-  // const $modal = $('.modal')
   const $modalBody = $('.model-body ol')
 
-   let fakeCookie = [];
-    Cookies.set('cart', fakeCookie)
+  let fakeCookie = [];
+  Cookies.set('cart', fakeCookie)
 
 
   $addToCart.on('click', function(){
@@ -41,15 +29,16 @@ $(document).ready(function() {
   });
 
   const $cartbtn = $('#cartbtn')
-  var $orderList = $('.modal-body ol')
+  const $orderList = $('.modal-body ol')
   const $modal = $('.modal-body')
+  $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer');
+  $('<input>').attr('id', 'name').attr('placeholder', 'name').attr('required', '').prependTo('.modal-header')
+  $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
 
 
   $cartbtn.click(function() {
     $('ol').empty();
     $('.modal-body').empty();
-    $('.modal-footer.comments').empty();
-
 
     let allCookies = Cookies.getJSON('cart');
     let total = 0;
@@ -64,9 +53,7 @@ $(document).ready(function() {
     $($orderList).appendTo($modal);
     let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
     $totalPrice.appendTo('.modal-body')
-    $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer');
-    $('<input>').attr('id', 'name').attr('placeholder', 'name').attr('required', '').prependTo('.modal-header')
-    $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
+
 
   });
 
@@ -109,8 +96,8 @@ $(document).ready(function() {
 
     user['name'] = $('#name').val();
 
-    //need to empty cart so they cannot keep pressing order
     //leave a message - Thank you! your order has been sent and we will let you know via text when it is ready
+    //only let them send order once
 
     const twilioOrder = {
       name: $name,
@@ -118,6 +105,8 @@ $(document).ready(function() {
       orderItems: finalOrderObj.quantity_of_items,
       totalPrice: $totalPrice
     }
+
+    const twilioOrder2 = [$name, user.phone_number, finalOrderObj.quantity_of_items, $totalPrice]
 
     $.ajax({
       method: "POST",
@@ -134,15 +123,20 @@ $(document).ready(function() {
       })
       .done(function(orderId){
         console.log(orderId[0])
+        $.ajax({
+          method: "POST",
+          url: "/api/twilioSend",
+          data: twilioOrder
+        })
+        .done(function(){
+          console.log("sent a text!")
+        })
       })
-      .
-    })
+
+    });
 
 
-
-
-  })
-
+  });
 
 });
 
