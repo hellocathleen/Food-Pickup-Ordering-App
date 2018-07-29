@@ -125,7 +125,7 @@ $(document).ready(function() {
         console.log(orderId[0])
         $.ajax({
           method: "POST",
-          url: "/api/twilioSend",
+          url: "/api/orderSend",
           data: twilioOrder
         })
         .done(function(){
