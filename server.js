@@ -19,7 +19,7 @@ const Cookies     = require('js-cookie');
 const accountSid  = process.env.TWILIO_ACCOUNT_SID;
 const authToken   = process.env.TWILIO_AUTH_TOKEN;
 const client      = require('twilio')(accountSid, authToken);
-const messageResponse = require('twilio').twiml.MessagingResponse;
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const twilioNum   = +17784028085;
 
 // Seperated Routes for each Resource
@@ -97,7 +97,7 @@ app.get("/api/orders", (req, res) => {
 });
 
 //send the order to the restaurant
-app.post("/api/twilioSend", (req, res) => {
+app.post("/api/orderSend", (req, res) => {
   console.log(req.body)
   let name = req.body.name;
   let phoneNum = req.body.phoneNumber
@@ -113,23 +113,13 @@ app.post("/api/twilioSend", (req, res) => {
   res.end()
 })
 
-// client.messages.create({
-//     to: +12506341714,
-//     from: twilioNum,
-//     body: "This is working!!"
-//   })
-//   .then((message) => console.log(message.sid))
-//   .done()
 
 
+app.post("/api/restaurantReply", (req, res) => {
+  const twiml = new MessagingResponse();
+  console.log(req.body)
 
-// process.env.PHONE
-//
-
-app.post("/api/restaurantSend", (req, res) => {
-  const twiml = new messageResponse();
-
-  twiml.message(req.body);
+  twiml.message("Got it!");
 
   res.end(twiml.toString())
 })
