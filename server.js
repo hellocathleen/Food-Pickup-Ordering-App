@@ -104,7 +104,7 @@ app.post("/api/orderSend", (req, res) => {
   let orderItems = JSON.stringify(req.body.orderItems)
   let totalPrice = req.body.totalPrice
   client.messages.create({
-    to: phoneNum,
+    to: process.env.PHONE,
     from: twilioNum,
     body: `New Order received from:  ${name}, @ ${phoneNum}, ${orderItems}  Total Price: ${totalPrice}`
   })
@@ -117,21 +117,17 @@ app.post("/api/orderSend", (req, res) => {
 
 app.post("/api/restaurantReply", (req, res) => {
   const twiml = new MessagingResponse();
-  console.log(req.body)
+  console.log("body of POST restReply: ", req.body.Body)
 
-  twiml.message("Got it!");
+  twiml.message(req.body.Body);
 
-  res.end(twiml.toString())
+  res.send(twiml.toString())
 })
 
-
-
-
-// app.get("/api/cart", (req, res) => {
-//   let cartOrder = req.session.cart
-//   console.log(cartOrder)
-//   res.render('index', cartOrder)
+// app.get("/api/restaurantReply", (req, res) => {
+//   res.send("body of restReply GET ", req.body.Body)
 // })
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
