@@ -17,7 +17,7 @@ $(document).ready(function() {
     const $price = $(this).siblings('#price').text().replace('$', '')
     const itemId = $(this).attr('id').replace('addToCart', '');//string
     const $itemAdded = $('<li>').text($name.text())
-    const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one
+    const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one 
 
 
 
@@ -60,8 +60,12 @@ $(document).ready(function() {
       }
 
     $($orderList).appendTo($modal);
+
+
     let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
     $totalPrice.appendTo('.modal-body')
+
+    
   });
   
 
