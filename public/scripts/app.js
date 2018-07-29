@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
 
 
@@ -123,14 +125,18 @@ $(document).ready(function() {
       })
       .done(function(orderId){
         console.log(orderId[0])
+        twilioOrder['orderId'] = orderId[0]
         $.ajax({
           method: "POST",
-          url: "/api/orderSend",
+          url: "/orderSend",
           data: twilioOrder
         })
-        .done(function(){
-          console.log("sent a text!")
-        })
+        .done(function(data){
+
+        });
+
+
+
       })
 
     });
