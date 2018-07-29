@@ -1,14 +1,3 @@
-// // $(() => {
-// //   $.ajax({
-// //     method: "GET",
-// //     url: "/api/users"
-// //   }).done((users) => {
-// //     for(user of users) {
-// //       $("<div>").text(user.name).appendTo($("body"));
-// //     }
-// //   });;
-// // });
-
 $(document).ready(function() {
 
 
@@ -48,6 +37,12 @@ $(document).ready(function() {
   const $modal = $('.modal-body')
 
 
+  $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer')
+  $('<input>').attr('id', 'name').attr('placeholder', '').attr('required', '').attr('class', ' name').prependTo('.modal-header')
+  $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', ' XXX-XXX-XXXX').attr('class', 'phone-number').prependTo('.modal-header')
+
+
+
   $cartbtn.click(function() {
     $('ol').empty();
     $('.modal-body').empty();
@@ -67,9 +62,8 @@ $(document).ready(function() {
     $($orderList).appendTo($modal);
     let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
     $totalPrice.appendTo('.modal-body')
-    $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer')
-    $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
   });
+  
 
 
   const $confirm = $('#confirm');
