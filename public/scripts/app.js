@@ -51,7 +51,7 @@ $(document).ready(function() {
         $listItem = $('<li>').attr('id', allCookies[i].name).text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
         const $deleteSpan = $('<span>');
-        const $delete = $('<button>').text('Remove');
+        const $delete = $('<button id="delete-button">').text('X');
         $deleteSpan.append($delete)
         $listItem.append($deleteSpan)
         $listItem.append($price)

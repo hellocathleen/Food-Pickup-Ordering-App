@@ -64,4 +64,18 @@
   float: right;
 }
 
+#delete-button {
+  font-size: 9px;
+  line-height: 1px;
+  margin-left: 5px;
+  font-family: "Sunflower", sans-serif;
+}
+
+h4 {
+  color: #233a59 !important;
+  font-family: "Sunflower", sans-serif !important;
+  margin: 10px !important;
+  padding: 15px !important;
+}
+
 /*# sourceMappingURL=modal.css.map */
