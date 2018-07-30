@@ -72,3 +72,17 @@ $blue: #233a59;
 .modal-body span {
   float: right;
 }
+
+#delete-button {
+  font-size: 9px;
+  line-height: 1px;
+  margin-left: 5px;
+  font-family: 'Sunflower', sans-serif;
+}
+
+h4 {
+  color: $blue!important;
+  font-family: $font!important;
+  margin: 10px!important;
+  padding: 15px!important;
+}

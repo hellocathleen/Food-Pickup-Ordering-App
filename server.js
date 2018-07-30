@@ -24,12 +24,9 @@ const client      = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const twilioNum   = +17784028085;
 
-const send = require('./routes/sendTheMessage.js')
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
-
-const sendMessage = require('./public/scripts/send-message');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.

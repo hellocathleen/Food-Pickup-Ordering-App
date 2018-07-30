@@ -32,9 +32,6 @@ $(document).ready(function() {
   const $cartbtn = $('#cartbtn')
   const $orderList = $('.modal-body ol')
   const $modal = $('.modal-body')
-  // $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer');
-  // $('<input>').attr('id', 'name').attr('placeholder', 'name').attr('required', '').prependTo('.modal-header')
-  // $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
 
 
   $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer')
@@ -54,7 +51,7 @@ $(document).ready(function() {
         $listItem = $('<li>').attr('id', allCookies[i].name).text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
         const $deleteSpan = $('<span>');
-        const $delete = $('<button>').text('Remove');
+        const $delete = $('<button id="delete-button">').text('X');
         $deleteSpan.append($delete)
         $listItem.append($deleteSpan)
         $listItem.append($price)
@@ -144,7 +141,7 @@ $(document).ready(function() {
 
   }
 
-  $('.modal-body').replaceWith(`<p2>Thank you for your order!  We will send you text confirmation and a text when it is ready for pickup! Happy Hippoing!</p2>`);
+  $('.modal-body').replaceWith(`<h4>Thank you for your order!  We will send you text confirmation and a text when it is ready for pickup! Happy Hippoing!</h4>`);
     $('.modal-footer').empty();
     $('.modal-header').empty();
   }
