@@ -123,11 +123,12 @@ app.post("/orderSend", (req, res) => {
   let phoneNum = req.body.phoneNumber
   let orderItems = JSON.stringify(req.body.orderItems)
   let totalPrice = req.body.totalPrice
+  let comments = req.body.comments
 
   client.messages
     .create({
       from: '+17784028085',
-      body: `New Order #${orderId} from:  ${name}, @ ${phoneNum}, ${orderItems} Total Price: ${totalPrice}`,
+      body: `New Order #${orderId} from:  ${name}, @ ${phoneNum}, ${orderItems} Total Price: ${totalPrice}, special comments: ${comments}`,
       to: '+12506341714'})
     .then(message => console.log(message.sid))
     .done();
