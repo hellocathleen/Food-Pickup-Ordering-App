@@ -20,7 +20,6 @@ $(document).ready(function() {
     const $itemAdded = $('<li>').text($name.text())
     const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one
 
-
     var order =
       {Quantity: itemQuantity, foodId: itemId, name: $name.text(), price: $price}
 
@@ -46,32 +45,50 @@ $(document).ready(function() {
     let total = 0;
       for (var i = 0; i < allCookies.length; i++) {
         total += allCookies[i].price * allCookies[i].Quantity
-        $listItem = $('<li>').text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
+        $listItem = $('<li>').attr('id', allCookies[i].name).text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
+        const $deleteSpan = $('<span>');
+        const $delete = $('<button>').text('Remove');
+        $deleteSpan.append($delete)
+        $listItem.append($deleteSpan)
         $listItem.append($price)
         $listItem.appendTo($orderList);
       }
 
-    $($orderList).appendTo($modal);
-    let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total}`)
-    $totalPrice.appendTo('.modal-body')
+      //  $('#delete').on('click', function() {
+      //     let $id = $(this).attr('id');
+      //     let $parent = $(this).parent();
+      //     console.log($parent)
+      //     let $parentOfParent = $parent.parent();
+      //     $parentOfParent.remove()
+      // })
 
+
+
+    $($orderList).appendTo($modal);
+    let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total.toFixed(2)}`)
+    $totalPrice.appendTo('.modal-body')
 
   });
 
 
   const $confirm = $('#confirm');
-  $confirm.on('click', function(){
+  $confirm.on('click', function() {
+
     let finalCookieOrder = Cookies.getJSON('cart');
     let $phone = $('.phone-number').val();
-    let phoneNoDash = $phone.replace(/\D/g,'')
+    let phoneNoDash = $phone.replace(/\D/g,'');
+    let $name = $('#name').val();
 
     if (phoneNoDash.length < 10) {
       alert('Please add your phone number including area code!');
-    }
+    } else if (!$name) {
+      alert('Please enter your name!');
+    } else {
+
     let $comments = $('.comments').val();
-    let $totalPrice = $('.total-price').text()
-    let totalPriceNum = $totalPrice.slice(1)
+    let $totalPrice = $('.total-price').text();
+    let totalPriceNum = $totalPrice.slice(1);
     let finalOrderObj = {quantity_of_items: []}
     let user = {};
     for (var i = 0; i < finalCookieOrder.length; i++) {
@@ -89,26 +106,18 @@ $(document).ready(function() {
       user['phone_number'] = "+" + phoneNoDash;
     }
 
-    let $name = $('#name').val();
-    if ($name) {
-      console.log('you typed your name');
-    } else {
-      alert('Please enter your name!');
-    }
-
     user['name'] = $('#name').val();
 
-    //leave a message - Thank you! your order has been sent and we will let you know via text when it is ready
-    //only let them send order once
 
     const twilioOrder = {
       name: $name,
       phoneNumber: user.phone_number,
       orderItems: finalOrderObj.quantity_of_items,
-      totalPrice: $totalPrice
+      totalPrice: $totalPrice,
+      comments: $comments
     }
 
-    const twilioOrder2 = [$name, user.phone_number, finalOrderObj.quantity_of_items, $totalPrice]
+    if ($name && user.phone_number) {
 
     $.ajax({
       method: "POST",
@@ -117,29 +126,27 @@ $(document).ready(function() {
     })
     .done(function(id) {
       finalOrderObj['user_id'] = id[0]
-      console.log(finalOrderObj)
       $.ajax({
         method: "POST",
         url: "/api/orders",
         data: finalOrderObj
       })
       .done(function(orderId){
-        console.log(orderId[0])
-        twilioOrder['orderId'] = orderId[0]
+        twilioOrder['orderId'] = orderId[0];
         $.ajax({
           method: "POST",
           url: "/orderSend",
           data: twilioOrder
         })
-        .done(function(data){
-
-        });
-
-
-
       })
-
     });
+
+  }
+
+  $('.modal-body').replaceWith(`<p2>Thank you ${name} for your order!  We will send you text confirmation and a text when it is ready for pickup! Happy Hippoing!</p2>`);
+    $('.modal-footer').empty();
+    $('.modal-header').empty();
+  }
 
 
   });
