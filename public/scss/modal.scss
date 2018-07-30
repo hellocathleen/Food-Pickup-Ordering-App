@@ -1,0 +1,74 @@
+$font: 'Sunflower', sans-serif;
+$blue: #233a59;
+
+#modal-close {
+  margin: -1rem -1rem -1rem -1rem !important;
+}
+
+.modal-body {
+  #RemoveListnumber {
+    list-style: none;
+    text-align: left;
+    padding-left: 5px;
+  }
+  .price {
+    float: right;
+  }
+  li {
+    font-family: Larsseit,Arial,sans-serif;
+    font-size: .9em;
+    color: #244751;
+  }
+  .footer .btn.btn-primary {
+    position: absolute;
+    bottom: 5px;
+  }
+}
+
+.modal-header { .phone-number {
+  position: absolute;
+  right: 40px;
+  top: 14px;
+  font-size: 13px;
+  font-family: $font;
+  border-color: $blue;
+  width: 150px;
+  border-width: 1px;
+  }
+
+  .name {
+    position: absolute;
+    left: 55px;
+    top: 14px;
+    font-size: 13px;
+    font-family: $font;
+    border-color: $blue;
+    width: 145px;
+    border-width: 1px;
+  }
+
+  p1 {
+    font-family: $font;
+    border-color: $blue;
+    font-size: 13px;
+  }
+
+  p2 {
+    font-family: $font;
+    border-color: $blue;
+    font-size: 13px;
+  }
+}
+
+.modal-footer .comments {
+  position: absolute;
+  left: 15px;
+  font-size: 13px;
+  width: 260px;
+  height: 38px;
+  font-family: $font;
+}
+
+.modal-body span {
+  float: right;
+}

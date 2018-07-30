@@ -18,7 +18,7 @@ $(document).ready(function() {
     const $price = $(this).siblings('#price').text().replace('$', '')
     const itemId = $(this).attr('id').replace('addToCart', '');//string
     const $itemAdded = $('<li>').text($name.text())
-    const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one
+    const itemQuantity = $(this).siblings('#quantity').val() //set to change back to one 
 
     var order =
       {Quantity: itemQuantity, foodId: itemId, name: $name.text(), price: $price}
@@ -37,6 +37,12 @@ $(document).ready(function() {
   $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', 'phone number with area code').attr('class', 'phone-number').prependTo('.modal-header')
 
 
+  $('<textarea>').attr('type', 'text').attr('name', 'comments').attr('placeholder', 'add comments').attr('class', 'comments').appendTo('.modal-footer')
+  $('<input>').attr('id', 'name').attr('placeholder', '').attr('required', '').attr('class', ' name').prependTo('.modal-header')
+  $('<input>').attr('type', 'text').attr('name', 'phone-number').attr('placeholder', ' XXX-XXX-XXXX').attr('class', 'phone-number').prependTo('.modal-header')
+
+
+
   $cartbtn.click(function() {
     $('ol').empty();
     $('.modal-body').empty();
@@ -53,6 +59,7 @@ $(document).ready(function() {
         $listItem.append($deleteSpan)
         $listItem.append($price)
         $listItem.appendTo($orderList);
+
       }
 
     $($orderList).appendTo($modal);
@@ -61,6 +68,10 @@ $(document).ready(function() {
 
   });
 
+    
+  });
+  
+  
 
   const $confirm = $('#confirm');
   $confirm.on('click', function() {
