@@ -57,7 +57,7 @@ body .card-img-top {
     font-family: 'Sunflower', sans-serif;
     position: absolute;
     bottom: 20px;
-    right: 60px;
+    right: 12px;
   }
   span {
     position: absolute;
@@ -70,10 +70,10 @@ body .card-img-top {
 #quantity {
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  right: 120px;
 }
 
 #bootstrap-overrides .d-inline-flex .p-2 {
-  padding: $spacer 15px!important;
+  padding: 15px!important;
 
 }
