@@ -14,8 +14,8 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const Cookies     = require('js-cookie');
-const cookieSession = require('cookie-session')
-const helmet        = require('helmet')
+const cookieSession = require('cookie-session');
+const helmet        = require('helmet');
 
 
 const accountSid  = process.env.TWILIO_ACCOUNT_SID;
@@ -70,18 +70,17 @@ app.get("/", (req, res) => {
         const templateVars = {
           results: JSON.parse(stringify)
         }
-        res.render("index", templateVars)
+        res.render("index", templateVars);
     });
 
 });
 
 app.post("/api/users", (req, res) => {
-  console.log("we are in the route on server.js", req.body)
   knex('users')
    .insert(req.body)
    .returning('id')
    .then(function(id){
-      res.send(id)
+      res.send(id);
    })
 
 })
@@ -108,24 +107,22 @@ app.get("/api/orders", (req, res) => {
  });
 });
 
-const customer = []
+const customer = [];
 
 //send the order to the restaurant
 app.post("/orderSend", (req, res) => {
 
-  // req.session.phoneNum = req.body.phoneNumber
-  let orderId = req.body.orderId
-  let customerNow = {}
-  customerNow['orderId'] = orderId
-  customerNow['phone'] = req.body.phoneNumber
-  customer.push(customerNow)
-  console.log("customer in orderSend: ", customer)
+  let orderId = req.body.orderId;
+  let customerNow = {};
+  customerNow['orderId'] = orderId;
+  customerNow['phone'] = req.body.phoneNumber;
+  customer.push(customerNow);
 
   let name = req.body.name;
-  let phoneNum = req.body.phoneNumber
-  let orderItems = JSON.stringify(req.body.orderItems)
-  let totalPrice = req.body.totalPrice
-  let comments = req.body.comments
+  let phoneNum = req.body.phoneNumber;
+  let orderItems = JSON.stringify(req.body.orderItems);
+  let totalPrice = req.body.totalPrice;
+  let comments = req.body.comments;
 
   client.messages
     .create({
@@ -141,31 +138,27 @@ app.post("/orderSend", (req, res) => {
             body: 'Your Hungry Hippo order has been received!'
           })
 
-  res.end()
+  res.end();
 })
 
 
 
 function orderReady(body) {
-  console.log("customer in orderReady", customer)
-  //
   const orderId = body.replace(/\D/g, '');
-  console.log
   var phone = null;
 
-  for (var i = 0; i < customer.length; i++) {
+  for (let i = 0; i < customer.length; i++) {
     if (customer[i].orderId === orderId) {
       phone = customer[i].phone;
     }
   }
-  console.log("phone after loop is: ", phone)
 
   client.messages.create({
     from: twilioNum,
     to: phone,
     body: body
   })
-  .done()
+  .done();
 }
 
 
@@ -173,7 +166,6 @@ function orderReady(body) {
 app.post("/api/restaurantReply", (req, res) => {
 
   const restText = req.body.Body;
-  console.log(req.body);
   orderReady(restText);
   res.end()
 
