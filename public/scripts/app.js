@@ -57,6 +57,7 @@ $(document).ready(function() {
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
         $listItem.append($price)
         $listItem.appendTo($orderList);
+
       }
 
     $($orderList).appendTo($modal);
@@ -68,7 +69,7 @@ $(document).ready(function() {
     
   });
   
-
+  
 
   const $confirm = $('#confirm');
   $confirm.on('click', function(){
