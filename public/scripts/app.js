@@ -55,16 +55,6 @@ $(document).ready(function() {
         $listItem.appendTo($orderList);
       }
 
-      //  $('#delete').on('click', function() {
-      //     let $id = $(this).attr('id');
-      //     let $parent = $(this).parent();
-      //     console.log($parent)
-      //     let $parentOfParent = $parent.parent();
-      //     $parentOfParent.remove()
-      // })
-
-
-
     $($orderList).appendTo($modal);
     let $totalPrice = $('<span>').attr('class', 'total-price').text(`$${total.toFixed(2)}`)
     $totalPrice.appendTo('.modal-body')
@@ -143,7 +133,7 @@ $(document).ready(function() {
 
   }
 
-  $('.modal-body').replaceWith(`<p2>Thank you ${name} for your order!  We will send you text confirmation and a text when it is ready for pickup! Happy Hippoing!</p2>`);
+  $('.modal-body').replaceWith(`<p2>Thank you for your order!  We will send you text confirmation and a text when it is ready for pickup! Happy Hippoing!</p2>`);
     $('.modal-footer').empty();
     $('.modal-header').empty();
   }
