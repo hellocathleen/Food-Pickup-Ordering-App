@@ -1,3 +1,4 @@
+## About
 A food pick-up ordering app built for a restaurant as a midterm project at Lighthouse Labs with a team of 3.
 The app allows a customer (user) to place an order on the restaurant’s web page. Placing an order notifies 
 the restaurant with order details and confirms the order with the customer by text message. The restaurant can 
@@ -19,7 +20,7 @@ reply to the incoming order with a expected wait time, as well as an additional 
 - Run `knex migrate:latest` to migrate the database.
 - Run `knex seed:run` to seed the database.
 - Run the development web server using the `node server.js` command.
-- Visit http://localhost:8080/
+- Visit `http://localhost:8080/`
 
 ## Dependencies
 
