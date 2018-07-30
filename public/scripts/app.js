@@ -46,7 +46,7 @@ $(document).ready(function() {
 
     let allCookies = Cookies.getJSON('cart');
     let total = 0;
-      for (var i = 0; i < allCookies.length; i++) {
+      for (let i = 0; i < allCookies.length; i++) {
         total += allCookies[i].price * allCookies[i].Quantity
         $listItem = $('<li>').attr('id', allCookies[i].name).text(`${allCookies[i].name}   x ${allCookies[i].Quantity}`)
         $price = $('<span>').text('$' + (allCookies[i].price*allCookies[i].Quantity).toFixed(2)).attr('class', 'price')
@@ -56,7 +56,6 @@ $(document).ready(function() {
         $listItem.append($deleteSpan)
         $listItem.append($price)
         $listItem.appendTo($orderList);
-
       }
 
     $($orderList).appendTo($modal);
@@ -89,7 +88,7 @@ $(document).ready(function() {
     let totalPriceNum = $totalPrice.slice(1);
     let finalOrderObj = {quantity_of_items: []}
     let user = {};
-    for (var i = 0; i < finalCookieOrder.length; i++) {
+    for (let i = 0; i < finalCookieOrder.length; i++) {
       finalOrderObj.quantity_of_items.push(finalCookieOrder[i]);
 
     }
