@@ -14,5 +14,15 @@ module.exports = (knex) => {
     });
   });
 
+  router.post('/api/users', (req, res) => {
+    console.log(data)
+   knex('users')
+   .insert(data)
+   .then((results) => {
+     res.json(results);
+     console.log("we inserted and got: ", results)
+    });
+  });
+
   return router;
 }

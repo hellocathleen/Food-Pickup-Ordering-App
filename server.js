@@ -13,11 +13,22 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-const cookieSession = require('cookie-session');
 const Cookies     = require('js-cookie');
+const cookieSession     = require('cookie-session')
+
+
+const accountSid  = process.env.TWILIO_ACCOUNT_SID;
+const authToken   = process.env.TWILIO_AUTH_TOKEN;
+const client      = require('twilio')(accountSid, authToken);
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const twilioNum   = +17784028085;
+
+const send = require('./routes/sendTheMessage.js')
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+
+const sendMessage = require('./public/scripts/send-message');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -26,14 +37,11 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-
-app.use(cookieSession ({
-  name: 'session',
-  keys: ['secret-string']
-
+app.use(cookieSession({
+ name: 'session',
+ keys: ['secret-string', 'key2', 'phoneNum'],
 }));
 
-//
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,6 +55,7 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
+
 
 // Home page
 app.get("/", (req, res) => {
@@ -64,20 +73,110 @@ app.get("/", (req, res) => {
 
 });
 
+app.post("/api/users", (req, res) => {
+  console.log("we are in the route on server.js", req.body)
+  knex('users')
+   .insert(req.body)
+   .returning('id')
+   .then(function(id){
+      res.send(id)
+   })
+
+})
+
+
+//sends order to database
 app.post("/api/orders", (req, res) => {
+  knex('orders')
+  .insert(req.body)
+  .returning('id')
+  .then(function(orderId){
+    res.send(orderId)
+  })
 
 })
 
-app.post("/api/cart", (req, res) => {
 
-  res.redirect('/')
+app.get("/api/orders", (req, res) => {
+   knex
+   .select("*")
+   .from("orders")
+   .then((results) => {
+     res.json(results);
+ });
+});
+
+const customer = []
+
+//send the order to the restaurant
+app.post("/orderSend", (req, res) => {
+
+  // req.session.phoneNum = req.body.phoneNumber
+  let orderId = req.body.orderId
+  let customerNow = {}
+  customerNow['orderId'] = orderId
+  customerNow['phone'] = req.body.phoneNumber
+  customer.push(customerNow)
+  console.log("customer in orderSend: ", customer)
+
+  let name = req.body.name;
+  let phoneNum = req.body.phoneNumber
+  let orderItems = JSON.stringify(req.body.orderItems)
+  let totalPrice = req.body.totalPrice
+  let comments = req.body.comments
+
+  client.messages
+    .create({
+      from: '+17784028085',
+      body: `New Order #${orderId} from:  ${name}, @ ${phoneNum}, ${orderItems} Total Price: ${totalPrice}, special comments: ${comments}`,
+      to: '+12506341714'})
+    .then(message => console.log(message.sid))
+    .done();
+    client.messages
+          .create({
+            to: req.body.phoneNumber,
+            from: +'17784028085',
+            body: 'Your Hungry Hippo order has been received!'
+          })
+
+  res.end()
 })
 
-// app.get("/api/cart", (req, res) => {
-//   let cartOrder = req.session.cart
-//   console.log(cartOrder)
-//   res.render('index', cartOrder)
-// })
+
+
+function orderReady(body) {
+  console.log("customer in orderReady", customer)
+  //
+  const orderId = body.replace(/\D/g, '');
+  console.log
+  var phone = null;
+
+  for (var i = 0; i < customer.length; i++) {
+    if (customer[i].orderId === orderId) {
+      phone = customer[i].phone;
+    }
+  }
+  console.log("phone after loop is: ", phone)
+
+  client.messages.create({
+    from: twilioNum,
+    to: phone,
+    body: body
+  })
+  .done()
+}
+
+
+//Twilio response route
+app.post("/api/restaurantReply", (req, res) => {
+
+  const restText = req.body.Body;
+  console.log(req.body);
+  orderReady(restText);
+  res.end()
+
+})
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
