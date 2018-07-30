@@ -14,7 +14,8 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const Cookies     = require('js-cookie');
-const cookieSession     = require('cookie-session')
+const cookieSession = require('cookie-session')
+const helmet        = require('helmet')
 
 
 const accountSid  = process.env.TWILIO_ACCOUNT_SID;
@@ -34,6 +35,7 @@ const sendMessage = require('./public/scripts/send-message');
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+app.use(helmet());
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
