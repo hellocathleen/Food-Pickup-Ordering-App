@@ -5,7 +5,7 @@ the restaurant with order details and confirms the order with the customer by te
 reply to the incoming order with a expected wait time, as well as an additional text when the order is ready for pickup.
 
 - Front-end built using HTML/CSS/SASS, Bootstrap, Javascript, AJAX
-- Backend was built using Node.js, Express, and PostreSQL
+- Backend was built using Node.js, Express, and PostgreSQL
 - Twilio API (modern telecomm API service) was used to allow text messaging between the customer and restaurant
 
 ## Team Members
